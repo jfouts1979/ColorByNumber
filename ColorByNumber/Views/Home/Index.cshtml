@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    @*<script src="canvasFlash.js"></script>*@
+</head>
+
+<script>
+    // cache result
+    //var canvas = document.getElementById("mycanvas"),
+    //    context = canvas.getContext("2d");
+
+    //function doRed() {
+    //    context.clearRect(0, 0, canvas.width, canvas.height);
+    //    canvas.style.backgroundColor = "red";
+    //    context.fillStyle = "purple";
+    //    context.fillRect(10, 10, 60, 60);
+    //    context.fillStyle = "black";
+    //    context.font = "30px Arial";
+    //    context.fillText = "Hello";
+    //}
+
+    //function doBlue() {
+    //    context.clearRect(0, 0, canvas.width, canvas.height);
+    //    canvas.style.backgroundColor = "blue";
+    //}
+
+    function init() {
+        // canvas manipulation will go here
+        var canvas = document.getElementById('canvasFlash');
+        var context = canvas.getContext('2d');
+        var horizontalIncrement = 40;
+        var verticalIncrement = 40;
+        var i;
+        var z;
+        var superMarioArray = [
+
+            [5, 5, 5, 5, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+            [5, 5, 4, 2, 2, 2, 2, 0, 2, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+            [5, 4, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5],
+            [4, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5],
+            [4, 2, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5],
+            [4, 4, 4, 3, 3, 3, 4, 3, 4, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+            [3, 4, 4, 3, 3, 3, 4, 3, 4, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+            [3, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5],
+            [3, 3, 4, 3, 3, 4, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5],
+            [4, 3, 3, 3, 4, 4, 4, 4, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 5],
+            [5, 4, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+            [5, 5, 4, 4, 3, 3, 3, 3, 3, 4, 5, 5, 4, 4, 5, 5, 5, 5, 5],
+            [5, 4, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 4, 5, 5, 5, 5],
+            [4, 2, 2, 2, 2, 4, 6, 4, 2, 2, 4, 4, 3, 3, 4, 5, 5, 5, 5],
+            [4, 2, 2, 2, 2, 4, 4, 6, 4, 2, 2, 4, 4, 3, 4, 5, 5, 5, 5],
+            [2, 2, 4, 4, 0, 2, 4, 6, 4, 2, 2, 2, 4, 4, 5, 4, 4, 4, 4],
+            [2, 4, 3, 3, 3, 4, 4, 0, 6, 4, 4, 4, 0, 4, 4, 4, 7, 7, 4],
+            [4, 3, 3, 3, 3, 3, 4, 0, 6, 6, 6, 6, 0, 6, 4, 7, 7, 7, 7],
+            [4, 3, 3, 3, 3, 3, 4, 6, 6, 6, 6, 6, 6, 6, 4, 7, 7, 7, 7]
+        ];
+
+        var j = 20;
+        var k = 20;
+
+        var rectangleWidth = 40;
+        var rectangleHeight = 40;
+        var initHorizTextPos = 80;
+        var initVertTextPos = 80;
+        for (z = 1; z < 20; z++) {
+            for (i = 1; i < 20; i++) {
+                context.rect(j, k, 40, 40);
+                context.stroke();
+                j = j + horizontalIncrement;
+                console.log(horizontalIncrement);
+                context.textAlign = "center";
+                var fillVal = superMarioArray[z - 1][i - 1];
+                context.fillText(fillVal, (initHorizTextPos) / 2, (initVertTextPos) / 2);
+                
+                switch (fillVal) {
+                    case 0:
+                        context.fillStyle = "white";
+                        context.fillRect(j - horizontalIncrement, k, 40, 40);
+                        break;
+                    case 2:
+                        context.fillStyle = "red";
+                        context.fillRect(j - horizontalIncrement, k, 40, 40);
+                        break;
+                    case 3:
+                        context.fillStyle = "tan";
+                        context.fillRect(j - horizontalIncrement, k, 40, 40);
+                        break;
+                    case 4:
+                        context.fillStyle = "black";
+                        context.fillRect(j - horizontalIncrement, k, 40, 40);
+                        break;
+                    case 5:
+                        context.fillStyle = "cyan";
+                        context.fillRect(j - horizontalIncrement, k, 40, 40);
+                        break;
+                    case 6:
+                        context.fillStyle = "blue";
+                        context.fillRect(j - horizontalIncrement, k, 40, 40);
+                        break;
+                    case 7:
+                        context.fillStyle = "brown";
+                        context.fillRect(j - horizontalIncrement, k, 40, 40);
+                }
+                initHorizTextPos = initHorizTextPos + (rectangleWidth * 2);
+
+            }
+         
+            j = 20;
+            k = k + rectangleHeight;
+            initHorizTextPos = 80;
+            initVertTextPos = initVertTextPos + (rectangleHeight * 2);
+
+        }
+    }
+</script>
+<style>
+    h1 {
+        color: red;
+    }
+
+    div {
+        background-color: yellow;
+    }
+
+    #div1 {
+        font-family: helvetica;
+    }
+
+    #div2 {
+        font-size: 36px;
+    }
+
+    .orangeback {
+        background-color: orange;
+    }
+
+    .yellowback {
+        background-color: yellow;
+    }
+
+    .blueback {
+        background-color: blue;
+    }
+
+    .pinkback {
+        background-color: pink;
+    }
+
+    canvasFlash {
+        width: 3200px;
+        height: 3200px;
+    }
+</style>
+<body onload="init();">
+    <canvas id="canvasFlash" width="1000px" height="1000px" />
+</body>
+<h1>Main Header</h1>
+<canvas id="mycanvas" class="orangeback"></canvas>
+<input type="button" value="red" id="button2" onclick="doRed()">
+<input type="button" value="blue" id="button3" onclick="doBlue()">

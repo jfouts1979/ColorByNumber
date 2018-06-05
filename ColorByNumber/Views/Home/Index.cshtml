@@ -8,24 +8,6 @@
 </head>
 
 <script>
-    // cache result
-    //var canvas = document.getElementById("mycanvas"),
-    //    context = canvas.getContext("2d");
-
-    //function doRed() {
-    //    context.clearRect(0, 0, canvas.width, canvas.height);
-    //    canvas.style.backgroundColor = "red";
-    //    context.fillStyle = "purple";
-    //    context.fillRect(10, 10, 60, 60);
-    //    context.fillStyle = "black";
-    //    context.font = "30px Arial";
-    //    context.fillText = "Hello";
-    //}
-
-    //function doBlue() {
-    //    context.clearRect(0, 0, canvas.width, canvas.height);
-    //    canvas.style.backgroundColor = "blue";
-    //}
 
     function init() {
         // canvas manipulation will go here
@@ -105,7 +87,6 @@
                         context.fillRect(j - horizontalIncrement, k, 40, 40);
                 }
                 initHorizTextPos = initHorizTextPos + (rectangleWidth * 2);
-
             }
          
             j = 20;
@@ -113,51 +94,30 @@
             initHorizTextPos = 80;
             initVertTextPos = initVertTextPos + (rectangleHeight * 2);
 
+            canvas.addEventListener("click", getClickPosition, false);
         }
     }
+
+    function isPointInsideRect(pointX,pointY,rectX,rectY,rectWidth,rectHeight){
+        return  (rectX <= pointX) && (rectX + rectWidth >= pointX) &&
+            (rectY <= pointY) && (rectY + rectHeight >= pointY);
+    }
+
+    function getClickPosition(e) {
+        var xPosition = e.clientX;
+        var yPosition = e.clientY;
+        if ((sampleRectX <= xPosition) && (sampleRectX + sampleRectW >= xPosition) && (sampleRectY <= yPosition) && (sampleRectY + sampleRectH >= yPosition)) {
+            if (lose===true) {
+                playAgain = true;
+            };
+        };
+
+
+    };
 </script>
-<style>
-    h1 {
-        color: red;
-    }
 
-    div {
-        background-color: yellow;
-    }
-
-    #div1 {
-        font-family: helvetica;
-    }
-
-    #div2 {
-        font-size: 36px;
-    }
-
-    .orangeback {
-        background-color: orange;
-    }
-
-    .yellowback {
-        background-color: yellow;
-    }
-
-    .blueback {
-        background-color: blue;
-    }
-
-    .pinkback {
-        background-color: pink;
-    }
-
-    canvasFlash {
-        width: 3200px;
-        height: 3200px;
-    }
-</style>
 <body onload="init();">
     <canvas id="canvasFlash" width="1000px" height="1000px" />
 </body>
-<h1>Main Header</h1>
-<canvas id="mycanvas" class="orangeback"></canvas>
-<input type="button" value="red" id="button2" onclick="doRed()">
-<input type="button" value="blue" id="button3" onclick="doBlue()">
+
+

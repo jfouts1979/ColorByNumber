@@ -1,7 +1,203 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<p>Use this area to provide additional information.</p>
+</head>
+
+<script>
+    var lastClicked;
+    var numRows=19;
+    var numCols = 20;
+
+    var superMarioArray = [
+
+        [5, 5, 5, 5, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+        [5, 5, 4, 2, 2, 2, 2, 0, 2, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+        [5, 4, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5],
+        [4, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5],
+        [4, 2, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5],
+        [4, 4, 4, 3, 3, 3, 4, 3, 4, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+        [3, 4, 4, 3, 3, 3, 4, 3, 4, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+        [3, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5],
+        [3, 3, 4, 3, 3, 4, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5],
+        [4, 3, 3, 3, 4, 4, 4, 4, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 5],
+        [5, 4, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+        [5, 5, 4, 4, 3, 3, 3, 3, 3, 4, 5, 5, 4, 4, 5, 5, 5, 5, 5],
+        [5, 4, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 4, 5, 5, 5, 5],
+        [4, 2, 2, 2, 2, 4, 6, 4, 2, 2, 4, 4, 3, 3, 4, 5, 5, 5, 5],
+        [4, 2, 2, 2, 2, 4, 4, 6, 4, 2, 2, 4, 4, 3, 4, 5, 5, 5, 5],
+        [2, 2, 4, 4, 0, 2, 4, 6, 4, 2, 2, 2, 4, 4, 5, 4, 4, 4, 4],
+        [2, 4, 3, 3, 3, 4, 4, 0, 6, 4, 4, 4, 0, 4, 4, 4, 7, 7, 4],
+        [4, 3, 3, 3, 3, 3, 4, 0, 6, 6, 6, 6, 0, 6, 4, 7, 7, 7, 7],
+        [4, 3, 3, 3, 3, 3, 4, 6, 6, 6, 6, 6, 6, 6, 4, 7, 7, 7, 7]
+    ];
+
+    var superYoshiArray = [
+        [9, 9, 9, 9, 9, 9, 9, 8, 8, 9, 8, 8, 9, 9, 9, 9, 9, 9, 9],
+        [9, 9, 9, 9, 9, 9, 8, 6, 6, 8, 6, 6, 8, 9, 9, 9, 9, 9, 9],
+        [9, 9, 9, 9, 9, 8, 7, 6, 0, 0, 0, 0, 0, 8, 9, 9, 9, 9, 9],
+        [9, 9, 8, 8, 8, 8, 7, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
+        [9, 8, 5, 5, 5, 8, 0, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
+        [9, 8, 5, 5, 8, 8, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 9, 9, 9],
+        [9, 8, 8, 8, 6, 6, 8, 0, 0, 0, 8, 0, 8, 6, 6, 6, 8, 9, 9],
+        [8, 5, 8, 6, 6, 6, 6, 8, 8, 8, 6, 8, 6, 6, 0, 0, 6, 8, 9],
+        [5, 5, 8, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 8, 6, 8, 6, 8],
+        [5, 5, 8, 7, 6, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8],
+        [8, 8, 8, 7, 6, 0, 0, 0, 0, 8, 6, 6, 6, 6, 6, 6, 6, 6, 8],
+        [9, 8, 8, 7, 7, 0, 0, 0, 0, 8, 7, 6, 6, 6, 6, 6, 6, 6, 8],
+        [9, 8, 5, 8, 7, 7, 0, 0, 8, 8, 7, 7, 6, 6, 6, 6, 6, 6, 8],
+        [9, 9, 8, 8, 8, 7, 7, 0, 0, 8, 7, 7, 7, 7, 6, 6, 6, 8, 9],
+        [9, 9, 8, 5, 8, 7, 6, 0, 0, 0, 8, 7, 7, 7, 7, 8, 8, 9, 9],
+        [8, 8, 8, 8, 7, 6, 6, 0, 0, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9],
+        [5, 8, 8, 8, 7, 6, 0, 0, 0, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9],
+        [8, 8, 8, 6, 6, 6, 6, 0, 0, 8, 0, 6, 8, 9, 9, 9, 9, 9, 9],
+        [8, 7, 7, 6, 6, 8, 0, 0, 0, 8, 8, 0, 6, 8, 9, 9, 9, 9, 9],
+        [6, 6, 6, 6, 8, 0, 0, 0, 0, 8, 8, 8, 6, 8, 9, 9, 9, 9, 9]
+    ];
+
+    var finishedDrawingGrid = clickableDrawingGrid(numRows,numCols,function(el,row,col,i){
+        //console.log("You clicked on element:",el);
+        //console.log("You clicked on row:",row);
+        //console.log("You clicked on col:",col);
+        //console.log("You clicked on item #:",i);
+
+        //switch (superYoshiArray[row][col]) {
+        //case 5:
+        //    context.fillStyle = "white";
+        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
+        //    break;
+        //case 6:
+        //    context.fillStyle = "red";
+        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
+        //    break;
+        //case 7:
+        //    context.fillStyle = "tan";
+        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
+        //    break;
+        //case 8:
+        //    context.fillStyle = "black";
+        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
+        //    break;
+        //case 9:
+        //    context.fillStyle = "cyan";
+        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
+        //    break;
+        //    }
+
+        
+        //el.className='clicked';
+        if (lastClicked) lastClicked.className='';
+        lastClicked = el;
+       // $("lastClicked:contains(9)").css('background-color', 'green');
+
+        $(el).each(function () {
+            //if ($(this).html().match(/^\s*\d[\d,\.]*\s*$/)) {
+                //$(this).css('background-color', 'red');
+                // TODO: something cool
+                //$('this:contains(9)').css('background-color', 'green');
+                var cellValue = $(this).html();
+                if(!isNaN(parseFloat(cellValue))) {
+                    if (cellValue == 5) {
+                        $(this).css('background-color','red');
+                    }
+                    if(cellValue==6){
+                        $(this).css('background-color','lightgreen');
+                    }
+                    if (cellValue == 7) {
+                        $(this).css('background-color','green');}
+  
+                    if(cellValue==8){
+                        $(this).css('background-color','black');
+                    }
+                    if(cellValue==9){
+                        $(this).css('background-color','blue');
+                    }
+                    if(cellValue==0){
+                        $(this).css('background-color','white');
+                    }
+            }
+        });
+        //$('tr td').each(function(){
+        //    var cellValue = $(this).html();
+        //    if(!isNaN(parseFloat(cellValue))) {
+        //        if (cellValue == 1) {
+        //            $(this).css('background-color','red');
+        //        }
+  
+        //        if(cellValue==2){
+        //            $(this).css('background-color','green');
+        //        }
+    
+        //        if(cellValue==3){
+        //            $(this).css('background-color','blue');
+        //        }
+    
+        //        if(cellValue==4){
+        //            $(this).css('background-color','yellow');
+        //        }
+        //    }
+        //});
+
+        
+    });
+
+    document.body.appendChild(finishedDrawingGrid);
+
+   
+     
+    function clickableDrawingGrid(rows, cols, callback ){
+        var i=0;
+        var drawingGrid = document.createElement('table');
+        drawingGrid.className = 'drawingGrid';
+        for (var r=0;r<rows;++r){
+            var tr = drawingGrid.appendChild(document.createElement('tr'));
+            for (var c=0;c<cols;++c){
+                var cell = tr.appendChild(document.createElement('td'));
+                //cell.innerHTML = ++i;
+                cell.innerHTML = superYoshiArray[r][c];
+                cell.addEventListener('click',(function(el,r,c,i){
+                    return function(){
+                        callback(el,r,c,i);
+                    }
+                })(cell,r,c,i),false);
+            }
+        }
+        return drawingGrid;
+    }
+
+
+</script>
+
+<style>
+    .drawingGrid { margin:1em auto; border-collapse:collapse }
+    .drawingGrid td {
+        cursor:pointer;
+        width:30px; height:30px;
+        border:1px solid #ccc;
+        text-align:center;
+        font-family:sans-serif; font-size: 13px;
+        /*.clicked:contains(5).css('color', 'red');*/
+    }
+
+    /*.drawingGrid td.clicked {
+                                   ':contains("5").css('color', 'red');
+
+                                   /*$('.status:contains("9")').css('color', 'green');*/ 
+                               
+
+/*.drawingGrid td.clicked {
+        background-color:green;
+        font-weight:bold; color:green;
+
+    }*/
+
+
+
+
+</style>
+
+
+
+

@@ -58,20 +58,16 @@
     ];
 
     var finishedDrawingGrid = clickableDrawingGrid(numRows,numCols,function(el,row,col,i){
-        //console.log("You clicked on element:",el);
-        //console.log("You clicked on row:",row);
-        //console.log("You clicked on col:",col);
-        //console.log("You clicked on item #:",i);
         //el.className='clicked';
         if (lastClicked) lastClicked.className='';
         lastClicked = el;
-       // $("lastClicked:contains(9)").css('background-color', 'green');
 
         $(el).each(function () {
                 var cellValue = $(this).html();
                 if(!isNaN(parseFloat(cellValue))) {
                     if (cellValue == 5) {
-                        $(this).css('background-color','red');
+                        $(this).css('background-color', 'red');
+                        $(this).css('color','red');
                     }
                     if(cellValue==6){
                         $(this).css('background-color','lightgreen');

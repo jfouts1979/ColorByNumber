@@ -62,41 +62,12 @@
         //console.log("You clicked on row:",row);
         //console.log("You clicked on col:",col);
         //console.log("You clicked on item #:",i);
-
-        //switch (superYoshiArray[row][col]) {
-        //case 5:
-        //    context.fillStyle = "white";
-        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
-        //    break;
-        //case 6:
-        //    context.fillStyle = "red";
-        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
-        //    break;
-        //case 7:
-        //    context.fillStyle = "tan";
-        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
-        //    break;
-        //case 8:
-        //    context.fillStyle = "black";
-        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
-        //    break;
-        //case 9:
-        //    context.fillStyle = "cyan";
-        //    context.fillRect(j - horizontalIncrement, k, 40, 40);
-        //    break;
-        //    }
-
-        
         //el.className='clicked';
         if (lastClicked) lastClicked.className='';
         lastClicked = el;
        // $("lastClicked:contains(9)").css('background-color', 'green');
 
         $(el).each(function () {
-            //if ($(this).html().match(/^\s*\d[\d,\.]*\s*$/)) {
-                //$(this).css('background-color', 'red');
-                // TODO: something cool
-                //$('this:contains(9)').css('background-color', 'green');
                 var cellValue = $(this).html();
                 if(!isNaN(parseFloat(cellValue))) {
                     if (cellValue == 5) {
@@ -119,33 +90,10 @@
                     }
             }
         });
-        //$('tr td').each(function(){
-        //    var cellValue = $(this).html();
-        //    if(!isNaN(parseFloat(cellValue))) {
-        //        if (cellValue == 1) {
-        //            $(this).css('background-color','red');
-        //        }
-  
-        //        if(cellValue==2){
-        //            $(this).css('background-color','green');
-        //        }
-    
-        //        if(cellValue==3){
-        //            $(this).css('background-color','blue');
-        //        }
-    
-        //        if(cellValue==4){
-        //            $(this).css('background-color','yellow');
-        //        }
-        //    }
-        //});
-
         
     });
 
     document.body.appendChild(finishedDrawingGrid);
-
-   
      
     function clickableDrawingGrid(rows, cols, callback ){
         var i=0;
@@ -155,7 +103,6 @@
             var tr = drawingGrid.appendChild(document.createElement('tr'));
             for (var c=0;c<cols;++c){
                 var cell = tr.appendChild(document.createElement('td'));
-                //cell.innerHTML = ++i;
                 cell.innerHTML = superYoshiArray[r][c];
                 cell.addEventListener('click',(function(el,r,c,i){
                     return function(){
@@ -166,8 +113,6 @@
         }
         return drawingGrid;
     }
-
-
 </script>
 
 <style>
@@ -178,23 +123,7 @@
         border:1px solid #ccc;
         text-align:center;
         font-family:sans-serif; font-size: 13px;
-        /*.clicked:contains(5).css('color', 'red');*/
     }
-
-    /*.drawingGrid td.clicked {
-                                   ':contains("5").css('color', 'red');
-
-                                   /*$('.status:contains("9")').css('color', 'green');*/ 
-                               
-
-/*.drawingGrid td.clicked {
-        background-color:green;
-        font-weight:bold; color:green;
-
-    }*/
-
-
-
 
 </style>
 

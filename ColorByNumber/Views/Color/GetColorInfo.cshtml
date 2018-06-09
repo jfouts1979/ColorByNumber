@@ -6,20 +6,43 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 
 </head>
-
+<html>
 <script>
     var lastClicked;
     var numRows = 20;
     var numCols = 19;
     var numColors = 1;
     var maxColors = 5;
-    var wrapper = $(".input_fields_wrap");
-    var add_button = $(".add_field_button");
+    var gridShowing = false;
+    var useArray = new Array();
+    //var wrapper = $(".input_fields_wrap");
+    //var add_button = $(".add_field_button");
 
     var colorValueArray = [];
 
-    $(document).ready(function () {
-
+    //$(document).ready(function () {
+        var superYoshiArray = [
+            [9, 9, 9, 9, 9, 9, 9, 8, 8, 9, 8, 8, 9, 9, 9, 9, 9, 9, 9],
+            [9, 9, 9, 9, 9, 9, 8, 6, 6, 8, 6, 6, 8, 9, 9, 9, 9, 9, 9],
+            [9, 9, 9, 9, 9, 8, 7, 6, 0, 0, 0, 0, 0, 8, 9, 9, 9, 9, 9],
+            [9, 9, 8, 8, 8, 8, 7, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
+            [9, 8, 5, 5, 5, 8, 0, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
+            [9, 8, 5, 5, 8, 8, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 9, 9, 9],
+            [9, 8, 8, 8, 6, 6, 8, 0, 0, 0, 8, 0, 8, 6, 6, 6, 8, 9, 9],
+            [8, 5, 8, 6, 6, 6, 6, 8, 8, 8, 6, 8, 6, 6, 0, 0, 6, 8, 9],
+            [5, 5, 8, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 8, 6, 8, 6, 8],
+            [5, 5, 8, 7, 6, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8],
+            [8, 8, 8, 7, 6, 0, 0, 0, 0, 8, 6, 6, 6, 6, 6, 6, 6, 6, 8],
+            [9, 8, 8, 7, 7, 0, 0, 0, 0, 8, 7, 6, 6, 6, 6, 6, 6, 6, 8],
+            [9, 8, 5, 8, 7, 7, 0, 0, 8, 8, 7, 7, 6, 6, 6, 6, 6, 6, 8],
+            [9, 9, 8, 8, 8, 7, 7, 0, 0, 8, 7, 7, 7, 7, 6, 6, 6, 8, 9],
+            [9, 9, 8, 5, 8, 7, 6, 0, 0, 0, 8, 7, 7, 7, 7, 8, 8, 9, 9],
+            [8, 8, 8, 8, 7, 6, 6, 0, 0, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9],
+            [5, 8, 8, 8, 7, 6, 0, 0, 0, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9],
+            [8, 8, 8, 6, 6, 6, 6, 0, 0, 8, 0, 6, 8, 9, 9, 9, 9, 9, 9],
+            [8, 7, 7, 6, 6, 8, 0, 0, 0, 8, 8, 0, 6, 8, 9, 9, 9, 9, 9],
+            [6, 6, 6, 6, 8, 0, 0, 0, 0, 8, 8, 8, 6, 8, 9, 9, 9, 9, 9]
+        ];
         var superMarioArray = [
 
             [5, 5, 5, 5, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
@@ -43,169 +66,187 @@
             [4, 3, 3, 3, 3, 3, 4, 6, 6, 6, 6, 6, 6, 6, 4, 7, 7, 7, 7]
         ];
 
-        function onlyUnique(value, index, self) {
-            return self.indexOf(value) === index;
-        }
+        var princessPeachArray = [
+
+            [7, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 7, 7],
+            [7, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 7, 7],
+            [7, 7, 8, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 8, 8, 3, 3, 8, 7],
+            [7, 8, 3, 3, 3, 3, 3, 3, 8, 8, 4, 8, 8, 4, 8, 3, 3, 8, 7],
+            [7, 7, 8, 3, 3, 8, 8, 8, 4, 4, 8, 4, 4, 8, 4, 8, 8, 7, 7],
+            [7, 7, 8, 3, 3, 8, 4, 8, 4, 4, 8, 4, 4, 8, 4, 8, 7, 7, 7],
+            [7, 8, 3, 3, 3, 8, 4, 8, 4, 4, 4, 4, 4, 4, 4, 8, 7, 7, 7],
+            [8, 3, 3, 3, 3, 3, 7, 4, 4, 4, 4, 4, 4, 4, 4, 8, 7, 7, 7],
+            [8, 3, 3, 3, 3, 3, 3, 8, 4, 4, 4, 6, 6, 4, 8, 8, 8, 7, 7],
+            [7, 8, 3, 3, 3, 3, 3, 8, 8, 4, 4, 4, 4, 8, 8, 3, 8, 7, 7],
+            [8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 6, 6, 8, 8, 7, 7, 7],
+            [8, 3, 3, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 7, 7],
+            [8, 3, 3, 8, 5, 5, 5, 5, 6, 5, 5, 3, 5, 8, 5, 5, 8, 7, 7],
+            [7, 8, 3, 3, 8, 8, 8, 8, 8, 5, 3, 7, 3, 5, 8, 8, 8, 7, 7],
+            [7, 7, 8, 3, 3, 8, 4, 4, 8, 5, 3, 7, 3, 5, 8, 4, 8, 7, 7],
+            [7, 8, 3, 3, 3, 8, 4, 4, 8, 5, 5, 3, 5, 8, 0, 8, 8, 7, 7],
+            [7, 7, 8, 8, 8, 8, 4, 8, 0, 8, 5, 5, 5, 8, 0, 0, 8, 7, 7],
+            [7, 7, 7, 7, 8, 6, 8, 0, 0, 0, 8, 8, 5, 8, 0, 8, 8, 7, 7],
+            [7, 7, 7, 7, 8, 6, 6, 8, 8, 0, 0, 0, 8, 0, 0, 8, 7, 7, 7],
+            [7, 7, 7, 8, 6, 6, 6, 6, 8, 8, 0, 0, 8, 0, 8, 8, 7, 7, 7]
+        ];
 
         var i = 1;
-        //var dupes = [];
-        var uniqueArr = new Array();
 
-        //var arghArr = superMarioArray.filter(onlyUnique);
-        //alert(arghArr);
+        var uniqueArr = [].concat(...superMarioArray).filter((e, i, superMarioArray) => { return superMarioArray.indexOf(e) === i }).sort();
 
-        //let uniqueArr = [...new Set(myArray)];
+        for (i = 0; i < uniqueArr.length; i++) {
+            //put numbers in rows of 'table' in a div.
+            //allow adds of color names in second column of same 'table'.
+        }
 
-        //$.each(myArray, function (index, entry) {
-        //    if (!dupes[entry.name]) {
-        //        dupes[entry.name] = true;
-        //        uniqueArr.push(entry);
+        var maxField = 10; //Input fields increment limitation
+        //var addButton = $('.add_button'); //Add button selector
+        //var wrapper = $('.field_wrapper'); //Input field wrapper
+        //var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button"><img src="remove-icon.png" width="40px" height="auto"/></a></div>'; //New input field html
+        var x = 1; //Initial field counter is 1
+
+        ////Once add button is clicked
+        //$(addButton).click(function () {
+        //    //Check maximum number of input fields
+        //    if (x < maxField) {
+        //        x++; //Increment field counter
+        //        $(wrapper).append(fieldHTML); //Add field html
         //    }
         //});
 
-        //uniqueArr = _.uniq(myArray);
-        //uniqueArr = jQuery.uniqueSort(superMarioArray);
-        //uniqueArr = $.unique(superMarioArray.sort()).sort();
+        ////Once remove button is clicked
+        //$(wrapper).on('click', '.remove_button', function (e) {
+        //    e.preventDefault();
+        //    $(this).parent('div').remove(); //Remove field html
+        //    x--; //Decrement field counter
+        //});
 
-        //superMarioArray.filter(function() {
-        //    var seen = {};
-        //    return function(element, index, array) {
-        //        return !(element in seen) && (seen[element] = 1);
-        //    };
-        //}());
+    //});
 
-
-        //var arrNumRows = superMarioArray.length;
-        //var newArr = new Array();
-
-        //alert(arrNumRows);
-        //for (var i = 0; i < arrNumRows; i++) {
-        //    var rowLength = superMarioArray[i].length;
-        //    for (var j = 0; j < rowLength; j++) {
-        //        newArr.push(superMarioArray[i][j]);
-        //    }
-        //}
-
-        //uniqueArr = _.uniq(newArr);
-        //alert(uniqueArr);
-
-        var unique = [].concat(...superMarioArray).filter((e, i, superMarioArray) => { return superMarioArray.indexOf(e) === i }).sort();
-        alert(unique);
+  
 
 
+    function readyToDraw() {
+        
+        var finishedDrawingGrid = clickableDrawingGrid(numRows,
+            numCols,
+            function (el, row, col, i) {
+                //el.className='clicked';
+                if (lastClicked) lastClicked.className = '';
+                lastClicked = el;
 
-        var maxField = 10; //Input fields increment limitation
-        var addButton = $('.add_button'); //Add button selector
-        var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button"><img src="remove-icon.png" width="40px" height="auto"/></a></div>'; //New input field html
-        var x = 1; //Initial field counter is 1
+                $(el).each(function () {
+                    var cellValue = $(this).html();
+                    if (!isNaN(parseFloat(cellValue))) {
+                        //                //if (cellValue == 5) {
+                        //                //    $(this).css('background-color', 'red');
+                        //                //    $(this).css('color', 'red');
+                        //                //}
+                        //                //if (cellValue == 6) {
+                        //                //    $(this).css('background-color', 'lightgreen');
+                        //                //    $(this).css('color', 'lightgreen');
+                        //                //}
+                        //                //if (cellValue == 7) {
+                        //                //    $(this).css('background-color', 'green');
+                        //                //    $(this).css('color', 'green');
+                        //                //}
 
-        //Once add button is clicked
-        $(addButton).click(function () {
-            //Check maximum number of input fields
-            if (x < maxField) {
-                x++; //Increment field counter
-                $(wrapper).append(fieldHTML); //Add field html
-            }
-        });
+                        //                //if (cellValue == 8) {
+                        //                //    $(this).css('background-color', 'black');
+                        //                //    $(this).css('color', 'black');
+                        //                //}
+                        //                //if (cellValue == 9) {
+                        //                //    $(this).css('background-color', 'blue');
+                        //                //    $(this).css('color', 'blue');
+                        //                //}
+                        //                //if (cellValue == 0) {
+                        //                //    $(this).css('background-color', 'white');
+                        //                //    $(this).css('color', 'white');
+                        //                //}
 
-        //Once remove button is clicked
-        $(wrapper).on('click', '.remove_button', function (e) {
-            e.preventDefault();
-            $(this).parent('div').remove(); //Remove field html
-            x--; //Decrement field counter
-        });
+                        //Princess Peach Colors:
+                        if (cellValue == 5) {
+                            $(this).css('background-color', 'pink');
+                            $(this).css('color', 'pink');
+                        }
+                        if (cellValue == 6) {
+                            $(this).css('background-color', 'hotpink');
+                            $(this).css('color', 'hotpink');
+                        }
+                        if (cellValue == 7) {
+                            $(this).css('background-color', 'blue');
+                            $(this).css('color', 'blue');
+                        }
 
-    });
-
-
-
-
-    var superYoshiArray = [
-        [9, 9, 9, 9, 9, 9, 9, 8, 8, 9, 8, 8, 9, 9, 9, 9, 9, 9, 9],
-        [9, 9, 9, 9, 9, 9, 8, 6, 6, 8, 6, 6, 8, 9, 9, 9, 9, 9, 9],
-        [9, 9, 9, 9, 9, 8, 7, 6, 0, 0, 0, 0, 0, 8, 9, 9, 9, 9, 9],
-        [9, 9, 8, 8, 8, 8, 7, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
-        [9, 8, 5, 5, 5, 8, 0, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
-        [9, 8, 5, 5, 8, 8, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 9, 9, 9],
-        [9, 8, 8, 8, 6, 6, 8, 0, 0, 0, 8, 0, 8, 6, 6, 6, 8, 9, 9],
-        [8, 5, 8, 6, 6, 6, 6, 8, 8, 8, 6, 8, 6, 6, 0, 0, 6, 8, 9],
-        [5, 5, 8, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 8, 6, 8, 6, 8],
-        [5, 5, 8, 7, 6, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8],
-        [8, 8, 8, 7, 6, 0, 0, 0, 0, 8, 6, 6, 6, 6, 6, 6, 6, 6, 8],
-        [9, 8, 8, 7, 7, 0, 0, 0, 0, 8, 7, 6, 6, 6, 6, 6, 6, 6, 8],
-        [9, 8, 5, 8, 7, 7, 0, 0, 8, 8, 7, 7, 6, 6, 6, 6, 6, 6, 8],
-        [9, 9, 8, 8, 8, 7, 7, 0, 0, 8, 7, 7, 7, 7, 6, 6, 6, 8, 9],
-        [9, 9, 8, 5, 8, 7, 6, 0, 0, 0, 8, 7, 7, 7, 7, 8, 8, 9, 9],
-        [8, 8, 8, 8, 7, 6, 6, 0, 0, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9],
-        [5, 8, 8, 8, 7, 6, 0, 0, 0, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9],
-        [8, 8, 8, 6, 6, 6, 6, 0, 0, 8, 0, 6, 8, 9, 9, 9, 9, 9, 9],
-        [8, 7, 7, 6, 6, 8, 0, 0, 0, 8, 8, 0, 6, 8, 9, 9, 9, 9, 9],
-        [6, 6, 6, 6, 8, 0, 0, 0, 0, 8, 8, 8, 6, 8, 9, 9, 9, 9, 9]
-    ];
-
-    var finishedDrawingGrid = clickableDrawingGrid(numRows, numCols, function (el, row, col, i) {
-        //el.className='clicked';
-        if (lastClicked) lastClicked.className = '';
-        lastClicked = el;
-
-        $(el).each(function () {
-            var cellValue = $(this).html();
-            if (!isNaN(parseFloat(cellValue))) {
-                if (cellValue == 5) {
-                    $(this).css('background-color', 'red');
-                    $(this).css('color', 'red');
-                }
-                if (cellValue == 6) {
-                    $(this).css('background-color', 'lightgreen');
-                    $(this).css('color', 'lightgreen');
-                }
-                if (cellValue == 7) {
-                    $(this).css('background-color', 'green');
-                    $(this).css('color', 'green');
-                }
-
-                if (cellValue == 8) {
-                    $(this).css('background-color', 'black');
-                    $(this).css('color', 'black');
-                }
-                if (cellValue == 9) {
-                    $(this).css('background-color', 'blue');
-                    $(this).css('color', 'blue');
-                }
-                if (cellValue == 0) {
-                    $(this).css('background-color', 'white');
-                    $(this).css('color', 'white');
-                }
-            }
-        });
-
-    });
-
-    document.body.appendChild(finishedDrawingGrid);
-
-    function clickableDrawingGrid(rows, cols, callback) {
-        var i = 0;
-        var drawingGrid = document.createElement('table');
-        drawingGrid.className = 'drawingGrid';
-        for (var r = 0; r < rows; ++r) {
-            var tr = drawingGrid.appendChild(document.createElement('tr'));
-            for (var c = 0; c < cols; ++c) {
-                var cell = tr.appendChild(document.createElement('td'));
-                cell.innerHTML = superYoshiArray[r][c];
-                //cell.addEventListener('click',(function(el,r,c,i){
-                //    return function(){
-                //        callback(el,r,c,i);
-                //    }
-                //})(cell, r, c, i), false);
-                cell.addEventListener('mouseover', (function (el, r, c, i) {
-                    return function () {
-                        callback(el, r, c, i);
+                        if (cellValue == 8) {
+                            $(this).css('background-color', 'black');
+                            $(this).css('color', 'black');
+                        }
+                        if (cellValue == 0) {
+                            $(this).css('background-color', 'white');
+                            $(this).css('color', 'white');
+                        }
+                        if (cellValue == 3) {
+                            $(this).css('background-color', 'yellow');
+                            $(this).css('color', 'yellow');
+                        }
+                        if (cellValue == 4) {
+                            $(this).css('background-color', 'tan');
+                            $(this).css('color', 'tan');
+                        }
                     }
-                })(cell, r, c, i), false);
+                });
+            });
+
+        
+        document.body.appendChild(finishedDrawingGrid);
+
+        function clickableDrawingGrid(rows, cols, callback) {
+            var i = 0;
+            var drawingGrid = document.createElement('table');
+            drawingGrid.className = 'drawingGrid';
+            for (var r = 0; r < rows; ++r) {
+                var tr = drawingGrid.appendChild(document.createElement('tr'));
+                for (var c = 0; c < cols; ++c) {
+                    var cell = tr.appendChild(document.createElement('td'));
+                    cell.innerHTML = useArray[r][c];
+                    cell.addEventListener('mouseover', (function (el, r, c, i) {
+                        return function () {
+                            callback(el, r, c, i);
+                        }
+                    })(cell, r, c, i), false);
+                }
             }
+            return drawingGrid;
         }
-        return drawingGrid;
+
+        gridShowing = true;
+    };
+
+   
+
+
+    $('nav li ul').hide().removeClass('fallback');
+    $('nav li').hover(
+        function () {
+            $('ul', this).stop().slideDown(100);
+        },
+        function () {
+            $('ul', this).stop().slideUp(100);
+        }
+    );
+    
+    function princessPeach() {
+        useArray = princessPeachArray;
+        readyToDraw();
+    }
+    function superMario() {
+        useArray = superMarioArray;
+        readyToDraw();
+    }
+    function yoshi() {
+        useArray = superYoshiArray;
+        readyToDraw();
     }
 </script>
 
@@ -224,20 +265,50 @@
             font-family: sans-serif;
             font-size: 13px;
         }
+
+   
+    nav {background:#FFF;float:left;}
+    nav ul {text-align:center;}
+    nav ul li {float:left;display:inline;}
+    nav ul li:hover {background:#E6E6E6;}
+    nav ul li a {display:block;padding:15px 25px;color:#444;}
+    nav ul li ul {position:absolute;width:110px;background:#FFF;}
+    nav ul li ul li {width:110px;}
+    nav ul li ul li a {display:block;padding:15px 10px;color:#444;}
+    nav ul li ul li:hover a {background:#F7F7F7;}
+    nav ul li ul.fallback {display:none;}
+    nav ul li:hover ul.fallback {display:block;}
 </style>
 
 <body>
-    <p>Please enter the information below:</p>
-    <form id='getColorsForm'>
-        <div class="field_wrapper">
-            <div>
-                <input type="text" name="field_name[]" value="" />
-                <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png" width="40px" height="auto" /></a>
-            </div>
-        </div>
-    </form>
+@*<p>Please enter the information below:</p>*@
+@*<form id='getColorsForm'>*@
+
+@*<div class="field_wrapper">
+                <div>
+                    <input type="text" name="field_name[]" value=""/>
+                    <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png" width="40px" height="auto"/></a>
+                </div>
+            </div>*@
+@*</form>*@
+
+<ul>
+    <li><a href="#">Pick Your Colors</a></li>
+    <li>
+        <a href="#">Pick Your Character</a>
+        <ul class="fallback">
+            <li><a href="#" onclick="superMario()">Super Mario</a></li>
+            <li><a href="#" onclick="princessPeach()">Princess Peach</a></li>
+            <li><a href="#" onclick="yoshi()">Yoshi</a></li>
+        </ul>
+    </li>
+    <li>
+</ul>
+
 
 </body>
+</html>
+
 
 
 

@@ -15,6 +15,7 @@
     var maxColors = 5;
     var gridShowing = false;
     var useArray = new Array();
+    var uniqueArr = new Array();
     //var wrapper = $(".input_fields_wrap");
     //var add_button = $(".add_field_button");
 
@@ -91,7 +92,69 @@
 
     var i = 1;
 
-    var uniqueArr = [].concat(...superMarioArray).filter((e, i, superMarioArray) => { return superMarioArray.indexOf(e) === i }).sort();
+    function getUniqueArray(arrPam) {
+        uniqueArr = [].concat(...superMarioArray).filter((e, i, superMarioArray) => { return superMarioArray.indexOf(e) === i }).sort();
+        makeColorsTable();
+    }
+
+
+    function makeColorsTable() {
+        var len = uniqueArr.length;
+
+        var tablearea = document.getElementById('colorsListTable');
+
+        var table = document.createElement('table');
+
+        var tr = [];
+
+
+        var i;
+        var j;
+        var k;
+        var headerArray = new Array();
+
+        headerArray = ["Paint By Number:", "Suggested Color:", "Selected Color"];
+
+        // Create an empty <thead> element and add it to the table:
+        var header = table.createTHead();
+        // Create an empty <tr> element and add it to the first position of <thead>:
+        var row = header.insertRow(0);
+
+        for (k = 0; k < headerArray.length; k++) {
+       
+            // Insert a new cell (<td>) at the first position of the "new" <tr> element:
+            var cell = row.insertCell(0);
+
+            // Add some bold text in the new cell:
+            cell.innerHTML = "<b>" + headerArray[k] + "</b>";
+        }
+
+        for (i = 1; i < len; i++) {
+            tr[i] = document.createElement('tr');
+            for (j = 1; j < 2; j++) {
+
+
+                var td1 = document.createElement('td');
+                var td2 = document.createElement('td');
+                var td3 = document.createElement('td');
+
+                var text1 = document.createTextNode('Paint By Number:');
+                var text2 = document.createTextNode('Suggested Color:');
+                var text3 = document.createTextNode('Selected Color:');
+
+                td1.appendChild(text1);
+                td2.appendChild(text2);
+                td3.appendChild(text3);
+                tr[i].appendChild(td1);
+                tr[i].appendChild(td2);
+                tr[i].appendChild(td3);
+            }
+            table.appendChild(tr[i]);
+
+        }
+
+        tablearea.appendChild(table);
+    }
 
     for (i = 0; i < uniqueArr.length; i++) {
         //put numbers in rows of 'table' in a div.
@@ -237,9 +300,9 @@
 
     function princessPeach() {
         $('#drawDraw').empty();
-            useArray = princessPeachArray;
-            readyToDraw();
-        
+        useArray = princessPeachArray;
+        readyToDraw();
+
     }
     function superMario() {
         $('#drawDraw').empty();
@@ -347,9 +410,13 @@
         </li>
         <li>
     </ul>
-<div id="drawDraw">
+    <div id="drawDraw">
 
-</div>
+    </div>
+
+    <div id="colorsListTable">
+        <script>getUniqueArray(superYoshiArray);</script>
+    </div>
 
 </body>
 </html>

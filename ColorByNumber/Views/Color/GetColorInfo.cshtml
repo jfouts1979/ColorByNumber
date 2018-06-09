@@ -4,6 +4,8 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+   
+
 
 </head>
 <html>
@@ -16,8 +18,7 @@
     var gridShowing = false;
     var useArray = new Array();
     var uniqueArr = new Array();
-    //var wrapper = $(".input_fields_wrap");
-    //var add_button = $(".add_field_button");
+    var suggestedColorsArray = new Array();
 
     var colorValueArray = [];
 
@@ -90,11 +91,18 @@
         [7, 7, 7, 8, 6, 6, 6, 6, 8, 8, 0, 0, 8, 0, 8, 8, 7, 7, 7]
     ];
 
+
+
     var i = 1;
+    var numColors;
 
     function getUniqueArray(arrPam) {
-        uniqueArr = [].concat(...superMarioArray).filter((e, i, superMarioArray) => { return superMarioArray.indexOf(e) === i }).sort();
+        uniqueArr = [].concat(...superYoshiArray).filter((e, i, superYoshiArray) => { return superYoshiArray.indexOf(e) === i }).sort();
         makeColorsTable();
+    }
+
+    function getNumColors(arrPam) {
+        uniqueArr = [].concat(...superYoshiArray).filter((e, i, superYoshiArray) => { return superYoshiArray.indexOf(e) === i }).count();
     }
 
 
@@ -121,15 +129,15 @@
         var row = header.insertRow(0);
 
         for (k = 0; k < headerArray.length; k++) {
-       
+
             // Insert a new cell (<td>) at the first position of the "new" <tr> element:
             var cell = row.insertCell(0);
 
             // Add some bold text in the new cell:
             cell.innerHTML = "<b>" + headerArray[k] + "</b>";
         }
-
-        for (i = 1; i < len; i++) {
+        
+        for (i = 1; i <= len; i++) {
             tr[i] = document.createElement('tr');
             for (j = 1; j < 2; j++) {
 
@@ -138,9 +146,9 @@
                 var td2 = document.createElement('td');
                 var td3 = document.createElement('td');
 
-                var text1 = document.createTextNode('Paint By Number:');
-                var text2 = document.createTextNode('Suggested Color:');
-                var text3 = document.createTextNode('Selected Color:');
+                var text1 = document.createTextNode(uniqueArr[i - 1]);
+                var text2 = document.createTextNode(colorValueArray[i - 1]);
+                var text3 = document.createTextNode(colorValueArray[i - 1]);
 
                 td1.appendChild(text1);
                 td2.appendChild(text2);
@@ -154,41 +162,55 @@
         }
 
         tablearea.appendChild(table);
+        document.getElementById("colorsListTable").style.border = "1px solid black";
+
+        //$('#table').Tabledit({
+        //    columns: {
+        //        identifier: [0, 'Selected Color:'],
+        //        editable: [[1, 'Suggested Color:'], [2, 'Paint By Number:']]
+
+        //    }
+        //});
+
+
     }
 
-    for (i = 0; i < uniqueArr.length; i++) {
-        //put numbers in rows of 'table' in a div.
-        //allow adds of color names in second column of same 'table'.
-    }
 
     var maxField = 10; //Input fields increment limitation
-    //var addButton = $('.add_button'); //Add button selector
-    //var wrapper = $('.field_wrapper'); //Input field wrapper
-    //var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button"><img src="remove-icon.png" width="40px" height="auto"/></a></div>'; //New input field html
     var x = 1; //Initial field counter is 1
 
-    ////Once add button is clicked
-    //$(addButton).click(function () {
-    //    //Check maximum number of input fields
-    //    if (x < maxField) {
-    //        x++; //Increment field counter
-    //        $(wrapper).append(fieldHTML); //Add field html
+    //function setSelectedColors() {
+    //    for (m = 0; uniqueArr.length; m++) {
+    //        //colorValueArray[m] = //set value from here
     //    }
-    //});
+    //}
 
-    ////Once remove button is clicked
-    //$(wrapper).on('click', '.remove_button', function (e) {
-    //    e.preventDefault();
-    //    $(this).parent('div').remove(); //Remove field html
-    //    x--; //Decrement field counter
-    //});
-
-    //});
+    var colorValueArray = new Array();
 
 
+    
 
+    //Super Mario colors:
+    //colorValueArray = 
+
+
+    //var currColorValueArray = new Array();
+
+    //function setSuggestedColors() {
+    //    for (n = 0; uniqueArr.length; n++) {
+    //        currColorValueArray[n] = colorValueArray[n];
+    //    }
+    //}
+    //Yoshi colors:
+    colorValueArray = ["white", "red", "lightblue", "darkblue", "black", "pink"];
+
+    
+    //Princess Peach colors;
+    //colorValueArray = ["white", "yellow", "tan", "pink", "hotpink", "blue", "black"];
 
     function readyToDraw() {
+
+        
 
         var finishedDrawingGrid = clickableDrawingGrid(numRows,
             numCols,
@@ -200,62 +222,51 @@
                 $(el).each(function () {
                     var cellValue = $(this).html();
                     if (!isNaN(parseFloat(cellValue))) {
-                        //                //if (cellValue == 5) {
-                        //                //    $(this).css('background-color', 'red');
-                        //                //    $(this).css('color', 'red');
-                        //                //}
-                        //                //if (cellValue == 6) {
-                        //                //    $(this).css('background-color', 'lightgreen');
-                        //                //    $(this).css('color', 'lightgreen');
-                        //                //}
-                        //                //if (cellValue == 7) {
-                        //                //    $(this).css('background-color', 'green');
-                        //                //    $(this).css('color', 'green');
-                        //                //}
-
-                        //                //if (cellValue == 8) {
-                        //                //    $(this).css('background-color', 'black');
-                        //                //    $(this).css('color', 'black');
-                        //                //}
-                        //                //if (cellValue == 9) {
-                        //                //    $(this).css('background-color', 'blue');
-                        //                //    $(this).css('color', 'blue');
-                        //                //}
-                        //                //if (cellValue == 0) {
-                        //                //    $(this).css('background-color', 'white');
-                        //                //    $(this).css('color', 'white');
-                        //                //}
-
-                        //Princess Peach Colors:
-                        if (cellValue == 5) {
-                            $(this).css('background-color', 'pink');
-                            $(this).css('color', 'pink');
-                        }
-                        if (cellValue == 6) {
-                            $(this).css('background-color', 'hotpink');
-                            $(this).css('color', 'hotpink');
-                        }
-                        if (cellValue == 7) {
-                            $(this).css('background-color', 'blue');
-                            $(this).css('color', 'blue');
-                        }
-
-                        if (cellValue == 8) {
-                            $(this).css('background-color', 'black');
-                            $(this).css('color', 'black');
-                        }
+                        
+                    //Yoshi Colors:
                         if (cellValue == 0) {
-                            $(this).css('background-color', 'white');
-                            $(this).css('color', 'white');
+                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
                         }
-                        if (cellValue == 3) {
-                            $(this).css('background-color', 'yellow');
-                            $(this).css('color', 'yellow');
+                        if (cellValue == 1) {
+                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                        }
+                        if (cellValue == 2) {
+                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                        }
+                       if (cellValue == 3) {
+                           $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                           $(this).css('color', );
                         }
                         if (cellValue == 4) {
-                            $(this).css('background-color', 'tan');
-                            $(this).css('color', 'tan');
+                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)] );
+                            $(this).css('color', );
                         }
+                        if (cellValue == 5) {
+                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                  }
+                        if (cellValue == 6) {
+                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                        }
+                        if (cellValue == 7) {
+                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)] );
+                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                        }
+                        if (cellValue == 8) {
+                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)] );
+                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                        }
+                        if (cellValue == 9) {
+                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)] );
+                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                        }
+
+
+
                     }
                 });
             });
@@ -384,19 +395,14 @@
                 nav ul li:hover ul.fallback {
                     display: block;
                 }
+
+    table, th, td {
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
 </style>
 
 <body>
-    @*<p>Please enter the information below:</p>*@
-    @*<form id='getColorsForm'>*@
-
-    @*<div class="field_wrapper">
-            <div>
-                <input type="text" name="field_name[]" value=""/>
-                <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png" width="40px" height="auto"/></a>
-            </div>
-        </div>*@
-    @*</form>*@
 
     <ul>
         <li><a href="#">Pick Your Colors</a></li>
@@ -414,7 +420,7 @@
 
     </div>
 
-    <div id="colorsListTable">
+<div id="colorsListTable" contenteditable>
         <script>getUniqueArray(superYoshiArray);</script>
     </div>
 

@@ -21,113 +21,112 @@
     var colorValueArray = [];
 
     //$(document).ready(function () {
-        var superYoshiArray = [
-            [9, 9, 9, 9, 9, 9, 9, 8, 8, 9, 8, 8, 9, 9, 9, 9, 9, 9, 9],
-            [9, 9, 9, 9, 9, 9, 8, 6, 6, 8, 6, 6, 8, 9, 9, 9, 9, 9, 9],
-            [9, 9, 9, 9, 9, 8, 7, 6, 0, 0, 0, 0, 0, 8, 9, 9, 9, 9, 9],
-            [9, 9, 8, 8, 8, 8, 7, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
-            [9, 8, 5, 5, 5, 8, 0, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
-            [9, 8, 5, 5, 8, 8, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 9, 9, 9],
-            [9, 8, 8, 8, 6, 6, 8, 0, 0, 0, 8, 0, 8, 6, 6, 6, 8, 9, 9],
-            [8, 5, 8, 6, 6, 6, 6, 8, 8, 8, 6, 8, 6, 6, 0, 0, 6, 8, 9],
-            [5, 5, 8, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 8, 6, 8, 6, 8],
-            [5, 5, 8, 7, 6, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8],
-            [8, 8, 8, 7, 6, 0, 0, 0, 0, 8, 6, 6, 6, 6, 6, 6, 6, 6, 8],
-            [9, 8, 8, 7, 7, 0, 0, 0, 0, 8, 7, 6, 6, 6, 6, 6, 6, 6, 8],
-            [9, 8, 5, 8, 7, 7, 0, 0, 8, 8, 7, 7, 6, 6, 6, 6, 6, 6, 8],
-            [9, 9, 8, 8, 8, 7, 7, 0, 0, 8, 7, 7, 7, 7, 6, 6, 6, 8, 9],
-            [9, 9, 8, 5, 8, 7, 6, 0, 0, 0, 8, 7, 7, 7, 7, 8, 8, 9, 9],
-            [8, 8, 8, 8, 7, 6, 6, 0, 0, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9],
-            [5, 8, 8, 8, 7, 6, 0, 0, 0, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9],
-            [8, 8, 8, 6, 6, 6, 6, 0, 0, 8, 0, 6, 8, 9, 9, 9, 9, 9, 9],
-            [8, 7, 7, 6, 6, 8, 0, 0, 0, 8, 8, 0, 6, 8, 9, 9, 9, 9, 9],
-            [6, 6, 6, 6, 8, 0, 0, 0, 0, 8, 8, 8, 6, 8, 9, 9, 9, 9, 9]
-        ];
-        var superMarioArray = [
+    var superYoshiArray = [
+        [9, 9, 9, 9, 9, 9, 9, 8, 8, 9, 8, 8, 9, 9, 9, 9, 9, 9, 9],
+        [9, 9, 9, 9, 9, 9, 8, 6, 6, 8, 6, 6, 8, 9, 9, 9, 9, 9, 9],
+        [9, 9, 9, 9, 9, 8, 7, 6, 0, 0, 0, 0, 0, 8, 9, 9, 9, 9, 9],
+        [9, 9, 8, 8, 8, 8, 7, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
+        [9, 8, 5, 5, 5, 8, 0, 0, 0, 8, 0, 8, 0, 8, 9, 9, 9, 9, 9],
+        [9, 8, 5, 5, 8, 8, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 9, 9, 9],
+        [9, 8, 8, 8, 6, 6, 8, 0, 0, 0, 8, 0, 8, 6, 6, 6, 8, 9, 9],
+        [8, 5, 8, 6, 6, 6, 6, 8, 8, 8, 6, 8, 6, 6, 0, 0, 6, 8, 9],
+        [5, 5, 8, 6, 6, 6, 0, 0, 0, 6, 6, 6, 6, 6, 8, 6, 8, 6, 8],
+        [5, 5, 8, 7, 6, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 8],
+        [8, 8, 8, 7, 6, 0, 0, 0, 0, 8, 6, 6, 6, 6, 6, 6, 6, 6, 8],
+        [9, 8, 8, 7, 7, 0, 0, 0, 0, 8, 7, 6, 6, 6, 6, 6, 6, 6, 8],
+        [9, 8, 5, 8, 7, 7, 0, 0, 8, 8, 7, 7, 6, 6, 6, 6, 6, 6, 8],
+        [9, 9, 8, 8, 8, 7, 7, 0, 0, 8, 7, 7, 7, 7, 6, 6, 6, 8, 9],
+        [9, 9, 8, 5, 8, 7, 6, 0, 0, 0, 8, 7, 7, 7, 7, 8, 8, 9, 9],
+        [8, 8, 8, 8, 7, 6, 6, 0, 0, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9],
+        [5, 8, 8, 8, 7, 6, 0, 0, 0, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9],
+        [8, 8, 8, 6, 6, 6, 6, 0, 0, 8, 0, 6, 8, 9, 9, 9, 9, 9, 9],
+        [8, 7, 7, 6, 6, 8, 0, 0, 0, 8, 8, 0, 6, 8, 9, 9, 9, 9, 9],
+        [6, 6, 6, 6, 8, 0, 0, 0, 0, 8, 8, 8, 6, 8, 9, 9, 9, 9, 9]
+    ];
 
-            [5, 5, 5, 5, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-            [5, 5, 4, 2, 2, 2, 2, 0, 2, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-            [5, 4, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5],
-            [4, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5],
-            [4, 2, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5],
-            [4, 4, 4, 3, 3, 3, 4, 3, 4, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5],
-            [3, 4, 4, 3, 3, 3, 4, 3, 4, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5],
-            [3, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5],
-            [3, 3, 4, 3, 3, 4, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5],
-            [4, 3, 3, 3, 4, 4, 4, 4, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 5],
-            [5, 4, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5],
-            [5, 5, 4, 4, 3, 3, 3, 3, 3, 4, 5, 5, 4, 4, 5, 5, 5, 5, 5],
-            [5, 4, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 4, 5, 5, 5, 5],
-            [4, 2, 2, 2, 2, 4, 6, 4, 2, 2, 4, 4, 3, 3, 4, 5, 5, 5, 5],
-            [4, 2, 2, 2, 2, 4, 4, 6, 4, 2, 2, 4, 4, 3, 4, 5, 5, 5, 5],
-            [2, 2, 4, 4, 0, 2, 4, 6, 4, 2, 2, 2, 4, 4, 5, 4, 4, 4, 4],
-            [2, 4, 3, 3, 3, 4, 4, 0, 6, 4, 4, 4, 0, 4, 4, 4, 7, 7, 4],
-            [4, 3, 3, 3, 3, 3, 4, 0, 6, 6, 6, 6, 0, 6, 4, 7, 7, 7, 7],
-            [4, 3, 3, 3, 3, 3, 4, 6, 6, 6, 6, 6, 6, 6, 4, 7, 7, 7, 7]
-        ];
+    var superMarioArray = [
+        [5, 5, 5, 5, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+        [5, 5, 4, 2, 2, 2, 2, 0, 2, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+        [5, 4, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5],
+        [4, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5],
+        [4, 2, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5],
+        [4, 4, 4, 3, 3, 3, 4, 3, 4, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+        [3, 4, 4, 3, 3, 3, 4, 3, 4, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+        [3, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5],
+        [3, 3, 4, 3, 3, 4, 3, 3, 3, 3, 3, 4, 5, 5, 5, 5, 5, 5, 5],
+        [4, 3, 3, 3, 4, 4, 4, 4, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 5],
+        [5, 4, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5],
+        [5, 5, 4, 4, 3, 3, 3, 3, 3, 4, 5, 5, 4, 4, 5, 5, 5, 5, 5],
+        [5, 4, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 4, 5, 5, 5, 5],
+        [4, 2, 2, 2, 2, 4, 6, 4, 2, 2, 4, 4, 3, 3, 4, 5, 5, 5, 5],
+        [4, 2, 2, 2, 2, 4, 4, 6, 4, 2, 2, 4, 4, 3, 4, 5, 5, 5, 5],
+        [2, 2, 4, 4, 0, 2, 4, 6, 4, 2, 2, 2, 4, 4, 5, 4, 4, 4, 4],
+        [2, 4, 3, 3, 3, 4, 4, 0, 6, 4, 4, 4, 0, 4, 4, 4, 7, 7, 4],
+        [4, 3, 3, 3, 3, 3, 4, 0, 6, 6, 6, 6, 0, 6, 4, 7, 7, 7, 7],
+        [4, 3, 3, 3, 3, 3, 4, 6, 6, 6, 6, 6, 6, 6, 4, 7, 7, 7, 7]
+    ];
 
-        var princessPeachArray = [
+    var princessPeachArray = [
+        [7, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 7, 7],
+        [7, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 7, 7],
+        [7, 7, 8, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 8, 8, 3, 3, 8, 7],
+        [7, 8, 3, 3, 3, 3, 3, 3, 8, 8, 4, 8, 8, 4, 8, 3, 3, 8, 7],
+        [7, 7, 8, 3, 3, 8, 8, 8, 4, 4, 8, 4, 4, 8, 4, 8, 8, 7, 7],
+        [7, 7, 8, 3, 3, 8, 4, 8, 4, 4, 8, 4, 4, 8, 4, 8, 7, 7, 7],
+        [7, 8, 3, 3, 3, 8, 4, 8, 4, 4, 4, 4, 4, 4, 4, 8, 7, 7, 7],
+        [8, 3, 3, 3, 3, 3, 7, 4, 4, 4, 4, 4, 4, 4, 4, 8, 7, 7, 7],
+        [8, 3, 3, 3, 3, 3, 3, 8, 4, 4, 4, 6, 6, 4, 8, 8, 8, 7, 7],
+        [7, 8, 3, 3, 3, 3, 3, 8, 8, 4, 4, 4, 4, 8, 8, 3, 8, 7, 7],
+        [8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 6, 6, 8, 8, 7, 7, 7],
+        [8, 3, 3, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 7, 7],
+        [8, 3, 3, 8, 5, 5, 5, 5, 6, 5, 5, 3, 5, 8, 5, 5, 8, 7, 7],
+        [7, 8, 3, 3, 8, 8, 8, 8, 8, 5, 3, 7, 3, 5, 8, 8, 8, 7, 7],
+        [7, 7, 8, 3, 3, 8, 4, 4, 8, 5, 3, 7, 3, 5, 8, 4, 8, 7, 7],
+        [7, 8, 3, 3, 3, 8, 4, 4, 8, 5, 5, 3, 5, 8, 0, 8, 8, 7, 7],
+        [7, 7, 8, 8, 8, 8, 4, 8, 0, 8, 5, 5, 5, 8, 0, 0, 8, 7, 7],
+        [7, 7, 7, 7, 8, 6, 8, 0, 0, 0, 8, 8, 5, 8, 0, 8, 8, 7, 7],
+        [7, 7, 7, 7, 8, 6, 6, 8, 8, 0, 0, 0, 8, 0, 0, 8, 7, 7, 7],
+        [7, 7, 7, 8, 6, 6, 6, 6, 8, 8, 0, 0, 8, 0, 8, 8, 7, 7, 7]
+    ];
 
-            [7, 8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 7, 7],
-            [7, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 7, 7],
-            [7, 7, 8, 3, 3, 3, 3, 3, 3, 8, 8, 3, 3, 8, 8, 3, 3, 8, 7],
-            [7, 8, 3, 3, 3, 3, 3, 3, 8, 8, 4, 8, 8, 4, 8, 3, 3, 8, 7],
-            [7, 7, 8, 3, 3, 8, 8, 8, 4, 4, 8, 4, 4, 8, 4, 8, 8, 7, 7],
-            [7, 7, 8, 3, 3, 8, 4, 8, 4, 4, 8, 4, 4, 8, 4, 8, 7, 7, 7],
-            [7, 8, 3, 3, 3, 8, 4, 8, 4, 4, 4, 4, 4, 4, 4, 8, 7, 7, 7],
-            [8, 3, 3, 3, 3, 3, 7, 4, 4, 4, 4, 4, 4, 4, 4, 8, 7, 7, 7],
-            [8, 3, 3, 3, 3, 3, 3, 8, 4, 4, 4, 6, 6, 4, 8, 8, 8, 7, 7],
-            [7, 8, 3, 3, 3, 3, 3, 8, 8, 4, 4, 4, 4, 8, 8, 3, 8, 7, 7],
-            [8, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 6, 6, 8, 8, 7, 7, 7],
-            [8, 3, 3, 8, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 7, 7],
-            [8, 3, 3, 8, 5, 5, 5, 5, 6, 5, 5, 3, 5, 8, 5, 5, 8, 7, 7],
-            [7, 8, 3, 3, 8, 8, 8, 8, 8, 5, 3, 7, 3, 5, 8, 8, 8, 7, 7],
-            [7, 7, 8, 3, 3, 8, 4, 4, 8, 5, 3, 7, 3, 5, 8, 4, 8, 7, 7],
-            [7, 8, 3, 3, 3, 8, 4, 4, 8, 5, 5, 3, 5, 8, 0, 8, 8, 7, 7],
-            [7, 7, 8, 8, 8, 8, 4, 8, 0, 8, 5, 5, 5, 8, 0, 0, 8, 7, 7],
-            [7, 7, 7, 7, 8, 6, 8, 0, 0, 0, 8, 8, 5, 8, 0, 8, 8, 7, 7],
-            [7, 7, 7, 7, 8, 6, 6, 8, 8, 0, 0, 0, 8, 0, 0, 8, 7, 7, 7],
-            [7, 7, 7, 8, 6, 6, 6, 6, 8, 8, 0, 0, 8, 0, 8, 8, 7, 7, 7]
-        ];
+    var i = 1;
 
-        var i = 1;
+    var uniqueArr = [].concat(...superMarioArray).filter((e, i, superMarioArray) => { return superMarioArray.indexOf(e) === i }).sort();
 
-        var uniqueArr = [].concat(...superMarioArray).filter((e, i, superMarioArray) => { return superMarioArray.indexOf(e) === i }).sort();
+    for (i = 0; i < uniqueArr.length; i++) {
+        //put numbers in rows of 'table' in a div.
+        //allow adds of color names in second column of same 'table'.
+    }
 
-        for (i = 0; i < uniqueArr.length; i++) {
-            //put numbers in rows of 'table' in a div.
-            //allow adds of color names in second column of same 'table'.
-        }
+    var maxField = 10; //Input fields increment limitation
+    //var addButton = $('.add_button'); //Add button selector
+    //var wrapper = $('.field_wrapper'); //Input field wrapper
+    //var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button"><img src="remove-icon.png" width="40px" height="auto"/></a></div>'; //New input field html
+    var x = 1; //Initial field counter is 1
 
-        var maxField = 10; //Input fields increment limitation
-        //var addButton = $('.add_button'); //Add button selector
-        //var wrapper = $('.field_wrapper'); //Input field wrapper
-        //var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button"><img src="remove-icon.png" width="40px" height="auto"/></a></div>'; //New input field html
-        var x = 1; //Initial field counter is 1
+    ////Once add button is clicked
+    //$(addButton).click(function () {
+    //    //Check maximum number of input fields
+    //    if (x < maxField) {
+    //        x++; //Increment field counter
+    //        $(wrapper).append(fieldHTML); //Add field html
+    //    }
+    //});
 
-        ////Once add button is clicked
-        //$(addButton).click(function () {
-        //    //Check maximum number of input fields
-        //    if (x < maxField) {
-        //        x++; //Increment field counter
-        //        $(wrapper).append(fieldHTML); //Add field html
-        //    }
-        //});
-
-        ////Once remove button is clicked
-        //$(wrapper).on('click', '.remove_button', function (e) {
-        //    e.preventDefault();
-        //    $(this).parent('div').remove(); //Remove field html
-        //    x--; //Decrement field counter
-        //});
+    ////Once remove button is clicked
+    //$(wrapper).on('click', '.remove_button', function (e) {
+    //    e.preventDefault();
+    //    $(this).parent('div').remove(); //Remove field html
+    //    x--; //Decrement field counter
+    //});
 
     //});
 
-  
+
 
 
     function readyToDraw() {
-        
+
         var finishedDrawingGrid = clickableDrawingGrid(numRows,
             numCols,
             function (el, row, col, i) {
@@ -198,8 +197,8 @@
                 });
             });
 
-        
-        document.body.appendChild(finishedDrawingGrid);
+
+        document.getElementById("drawDraw").appendChild(finishedDrawingGrid);
 
         function clickableDrawingGrid(rows, cols, callback) {
             var i = 0;
@@ -223,7 +222,7 @@
         gridShowing = true;
     };
 
-   
+
 
 
     $('nav li ul').hide().removeClass('fallback');
@@ -235,16 +234,20 @@
             $('ul', this).stop().slideUp(100);
         }
     );
-    
+
     function princessPeach() {
-        useArray = princessPeachArray;
-        readyToDraw();
+        $('#drawDraw').empty();
+            useArray = princessPeachArray;
+            readyToDraw();
+        
     }
     function superMario() {
+        $('#drawDraw').empty();
         useArray = superMarioArray;
         readyToDraw();
     }
     function yoshi() {
+        $('#drawDraw').empty();
         useArray = superYoshiArray;
         readyToDraw();
     }
@@ -266,45 +269,87 @@
             font-size: 13px;
         }
 
-   
-    nav {background:#FFF;float:left;}
-    nav ul {text-align:center;}
-    nav ul li {float:left;display:inline;}
-    nav ul li:hover {background:#E6E6E6;}
-    nav ul li a {display:block;padding:15px 25px;color:#444;}
-    nav ul li ul {position:absolute;width:110px;background:#FFF;}
-    nav ul li ul li {width:110px;}
-    nav ul li ul li a {display:block;padding:15px 10px;color:#444;}
-    nav ul li ul li:hover a {background:#F7F7F7;}
-    nav ul li ul.fallback {display:none;}
-    nav ul li:hover ul.fallback {display:block;}
+
+    nav {
+        background: #FFF;
+        float: left;
+    }
+
+        nav ul {
+            text-align: center;
+        }
+
+            nav ul li {
+                float: left;
+                display: inline;
+            }
+
+                nav ul li:hover {
+                    background: #E6E6E6;
+                }
+
+                nav ul li a {
+                    display: block;
+                    padding: 15px 25px;
+                    color: #444;
+                }
+
+                nav ul li ul {
+                    position: absolute;
+                    width: 110px;
+                    background: #FFF;
+                }
+
+                    nav ul li ul li {
+                        width: 110px;
+                    }
+
+                        nav ul li ul li a {
+                            display: block;
+                            padding: 15px 10px;
+                            color: #444;
+                        }
+
+                        nav ul li ul li:hover a {
+                            background: #F7F7F7;
+                        }
+
+                    nav ul li ul.fallback {
+                        display: none;
+                    }
+
+                nav ul li:hover ul.fallback {
+                    display: block;
+                }
 </style>
 
 <body>
-@*<p>Please enter the information below:</p>*@
-@*<form id='getColorsForm'>*@
+    @*<p>Please enter the information below:</p>*@
+    @*<form id='getColorsForm'>*@
 
-@*<div class="field_wrapper">
-                <div>
-                    <input type="text" name="field_name[]" value=""/>
-                    <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png" width="40px" height="auto"/></a>
-                </div>
-            </div>*@
-@*</form>*@
+    @*<div class="field_wrapper">
+            <div>
+                <input type="text" name="field_name[]" value=""/>
+                <a href="javascript:void(0);" class="add_button" title="Add field"><img src="add-icon.png" width="40px" height="auto"/></a>
+            </div>
+        </div>*@
+    @*</form>*@
 
-<ul>
-    <li><a href="#">Pick Your Colors</a></li>
-    <li>
-        <a href="#">Pick Your Character</a>
-        <ul class="fallback">
-            <li><a href="#" onclick="superMario()">Super Mario</a></li>
-            <li><a href="#" onclick="princessPeach()">Princess Peach</a></li>
-            <li><a href="#" onclick="yoshi()">Yoshi</a></li>
-        </ul>
-    </li>
-    <li>
-</ul>
+    <ul>
+        <li><a href="#">Pick Your Colors</a></li>
+        <li>
+            <a href="#">Pick Your Character</a>
+            <ul class="fallback">
+                <li><a href="#" onclick="superMario()">Super Mario</a></li>
+                <li><a href="#" onclick="princessPeach()">Princess Peach</a></li>
+                <li><a href="#" onclick="yoshi()">Yoshi</a></li>
+            </ul>
+        </li>
+        <li>
+    </ul>
+<div id="drawDraw">
 
+</div>
 
 </body>
 </html>

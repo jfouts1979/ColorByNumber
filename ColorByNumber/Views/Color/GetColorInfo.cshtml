@@ -4,7 +4,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
-   
+
 
 
 </head>
@@ -23,6 +23,29 @@
     var colorValueArray = [];
 
     //$(document).ready(function () {
+
+    //    $(function () {
+    //        $("td").dblclick(function () {
+    //            var OriginalContent = $(this).text(); $(this).addClass("cellEditing");
+    //            $(this).html("<input type='text' value='" + OriginalContent + "' />");
+    //            $(this).children().first().focus();
+    //            $(this).children().first().keypress(function (e) {
+    //                if (e.which == 13) {
+    //                    var newContent $(this).val();
+    //                    $(this).parent().text(newContent); $(this).parent().removeClass("cellEditing");
+    //                }
+    //            });
+
+    //            $(this).children().first().blur(function () {
+    //                $(this).parent().text(OriginalContent);
+    //                $(this).parent().removeClass("cellEditing");
+    //            });
+    //        });
+    //    });
+
+    //});
+
+
     var superYoshiArray = [
         [9, 9, 9, 9, 9, 9, 9, 8, 8, 9, 8, 8, 9, 9, 9, 9, 9, 9, 9],
         [9, 9, 9, 9, 9, 9, 8, 6, 6, 8, 6, 6, 8, 9, 9, 9, 9, 9, 9],
@@ -97,46 +120,40 @@
     var numColors;
 
     function getUniqueArray(arrPam) {
-        uniqueArr = [].concat(...superYoshiArray).filter((e, i, superYoshiArray) => { return superYoshiArray.indexOf(e) === i }).sort();
-        makeColorsTable();
+        uniqueArr = [].concat(...arrPam).filter((e, i, arrPam) => { return arrPam.indexOf(e) === i }).sort();
+        //alert(uniqueArr);
+
     }
 
     function getNumColors(arrPam) {
-        uniqueArr = [].concat(...superYoshiArray).filter((e, i, superYoshiArray) => { return superYoshiArray.indexOf(e) === i }).count();
+        uniqueArr = [].concat(...arrPam).filter((e, i, arrPam) => { return arrPam.indexOf(e) === i }).count();
     }
 
 
     function makeColorsTable() {
         var len = uniqueArr.length;
-
-        var tablearea = document.getElementById('colorsListTable');
-
+        //alert('Unique Array Length - len: ' + len);
+        var tablearea = document.getElementById('colorsListTable'); //div name
         var table = document.createElement('table');
-
+        table.id = "tblSetColors";
         var tr = [];
-
-
         var i;
         var j;
         var k;
-        var headerArray = new Array();
+        var headerArray;
 
         headerArray = ["Paint By Number:", "Suggested Color:", "Selected Color"];
-
-        // Create an empty <thead> element and add it to the table:
         var header = table.createTHead();
-        // Create an empty <tr> element and add it to the first position of <thead>:
         var row = header.insertRow(0);
-
         for (k = 0; k < headerArray.length; k++) {
-
             // Insert a new cell (<td>) at the first position of the "new" <tr> element:
             var cell = row.insertCell(0);
-
             // Add some bold text in the new cell:
             cell.innerHTML = "<b>" + headerArray[k] + "</b>";
         }
-        
+
+        //alert('Header Array: ' + headerArray);
+
         for (i = 1; i <= len; i++) {
             tr[i] = document.createElement('tr');
             for (j = 1; j < 2; j++) {
@@ -164,11 +181,30 @@
         tablearea.appendChild(table);
         document.getElementById("colorsListTable").style.border = "1px solid black";
 
-        //$('#table').Tabledit({
-        //    columns: {
-        //        identifier: [0, 'Selected Color:'],
-        //        editable: [[1, 'Suggested Color:'], [2, 'Paint By Number:']]
+        $('#tblSetColors').on('blur',
+            function () {
+                alert('onblur');
+                for (w = 0; w < uniqueArr.len; w++) {
+                    colorValueArray[w] = setColorsTableArray[w];
+                }
+            });
+        alert(colorValueArray);
+        $('#tblSetColors').click(function (e) {
+            if ($(e.target).closest("tr").length)
+                $(this).data('original-value', $(this).text());
 
+            else
+                alert("no tr was clicked!");
+        });
+
+
+
+
+        //$('#tblSetColors td').each(function() {
+        //    if ($(this).data('original-value') !== $(this).text()) {
+        //        alert('this cell has been edited');
+        //        alert('original value was: ' + $(this).data('original-value'));
+        //        alert('new value is: ' + $(this).text());
         //    }
         //});
 
@@ -176,41 +212,53 @@
     }
 
 
-    var maxField = 10; //Input fields increment limitation
+    var maxColors = 10; //Input fields increment limitation
     var x = 1; //Initial field counter is 1
 
-    //function setSelectedColors() {
-    //    for (m = 0; uniqueArr.length; m++) {
-    //        //colorValueArray[m] = //set value from here
-    //    }
-    //}
-
     var colorValueArray = new Array();
-
-
     
 
-    //Super Mario colors:
-    //colorValueArray = 
+    function setInitialColors(arrPam) {
+        
+        switch(arrPam) {
+        case superYoshiArray:
+                colorValueArray = ["white", "red", "lightblue", "darkblue", "black", "pink"];
+            break;
+        case princessPeachArray:
+            colorValueArray = ["white", "yellow", "tan", "pink", "hotpink", "blue", "black"];
+                break;
+        case superMarioArray:
+            colorValueArray = ["yellow", "tan", "pink", "hotpink", "blue", "black"];
+            break;
+        default:
+            break;
+        }
 
-
-    //var currColorValueArray = new Array();
-
-    //function setSuggestedColors() {
-    //    for (n = 0; uniqueArr.length; n++) {
-    //        currColorValueArray[n] = colorValueArray[n];
-    //    }
-    //}
-    //Yoshi colors:
-    colorValueArray = ["white", "red", "lightblue", "darkblue", "black", "pink"];
-
+        alert('Color Value Array: ' + colorValueArray);
+    }
     
-    //Princess Peach colors;
-    //colorValueArray = ["white", "yellow", "tan", "pink", "hotpink", "blue", "black"];
+    var tempColorArray;
+    function setColorValueArray() {
+
+        var setColorsTableArray = [];
+
+        $("table#tblSetColors tr").each(function () {
+            var arrayOfThisRow = [];
+            var tableData = $(this).find('td:eq(2)');
+            if (tableData.length > 0) {
+                tableData.each(function () { arrayOfThisRow.push($(this).text()); });
+                //$(this).prev('td').text("New Text!!!");
+                setColorsTableArray.push(arrayOfThisRow);
+            }
+        });
+
+        alert('Set Colors Table Array: ' + setColorsTableArray);
+
+
+
+    }
 
     function readyToDraw() {
-
-        
 
         var finishedDrawingGrid = clickableDrawingGrid(numRows,
             numCols,
@@ -222,51 +270,19 @@
                 $(el).each(function () {
                     var cellValue = $(this).html();
                     if (!isNaN(parseFloat(cellValue))) {
-                        
-                    //Yoshi Colors:
-                        if (cellValue == 0) {
-                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                        }
-                        if (cellValue == 1) {
-                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                        }
-                        if (cellValue == 2) {
-                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                        }
-                       if (cellValue == 3) {
-                           $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                           $(this).css('color', );
-                        }
-                        if (cellValue == 4) {
-                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)] );
-                            $(this).css('color', );
-                        }
-                        if (cellValue == 5) {
-                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                  }
-                        if (cellValue == 6) {
-                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                        }
-                        if (cellValue == 7) {
-                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)] );
-                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                        }
-                        if (cellValue == 8) {
-                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)] );
-                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                        }
-                        if (cellValue == 9) {
-                            $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)] );
-                            $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
-                        }
 
+                        //Set Colors:
+                        //alert('Max Colors: ' + maxColors);
+                        for (p = 0; p < maxColors; p++) {
+                            if (cellValue == p) {
+                                //alert('p: ' + p);
+                                //alert('Index of number in unique array: ' + jQuery.inArray(parseInt(cellValue), uniqueArr));
+                                //alert('Color Value Array Value: ' + colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                                $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                                $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
+                            }
 
-
+                        }
                     }
                 });
             });
@@ -296,9 +312,6 @@
         gridShowing = true;
     };
 
-
-
-
     $('nav li ul').hide().removeClass('fallback');
     $('nav li').hover(
         function () {
@@ -309,25 +322,44 @@
         }
     );
 
-    function princessPeach() {
+    function startProgram(arr) {
+      
         $('#drawDraw').empty();
-        useArray = princessPeachArray;
-        readyToDraw();
-
-    }
-    function superMario() {
-        $('#drawDraw').empty();
-        useArray = superMarioArray;
-        readyToDraw();
-    }
-    function yoshi() {
-        $('#drawDraw').empty();
-        useArray = superYoshiArray;
+        getUniqueArray(arr);
+        setInitialColors(arr);
+        $('#colorsListTable').empty();
+        makeColorsTable();
+        setColorValueArray();
+        useArray = arr;
         readyToDraw();
     }
 </script>
 
 <style>
+
+    * {
+        font-family: Consolas font-size:2em;
+    }
+
+    .editableTable {
+        border: solid 1px;
+        width: 100%
+    }
+
+        .editableTable td {
+            border: solid 1px;
+        }
+
+        .editableTable .cellEditing {
+            padding: 0;
+        }
+
+            .editableTable .cellEditing input[type=text] {
+                width: 100%;
+                border: 0;
+                background-color: rgb(255,253,210);
+            }
+
     .drawingGrid {
         margin: 1em auto;
         border-collapse: collapse
@@ -409,9 +441,9 @@
         <li>
             <a href="#">Pick Your Character</a>
             <ul class="fallback">
-                <li><a href="#" onclick="superMario()">Super Mario</a></li>
-                <li><a href="#" onclick="princessPeach()">Princess Peach</a></li>
-                <li><a href="#" onclick="yoshi()">Yoshi</a></li>
+                <li><a href="#" onclick="startProgram(superMarioArray)">Super Mario</a></li>
+                <li><a href="#" onclick="startProgram(princessPeachArray)">Princess Peach</a></li>
+                <li><a href="#" onclick="startProgram(superYoshiArray)">Yoshi</a></li>
             </ul>
         </li>
         <li>
@@ -420,8 +452,8 @@
 
     </div>
 
-<div id="colorsListTable" contenteditable>
-        <script>getUniqueArray(superYoshiArray);</script>
+    <div id="colorsListTable" contenteditable>
+            <button onclick="setColorValueArray()">Update Color Array</button>
     </div>
 
 </body>

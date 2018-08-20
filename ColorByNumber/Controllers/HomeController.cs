@@ -17,8 +17,8 @@ namespace ColorByNumber.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
+            ViewBag.Message = "John R. Fouts, MBA - Contact Information";
+            
             return View();
         }
     }

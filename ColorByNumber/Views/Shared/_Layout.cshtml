@@ -10,28 +10,30 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
+            <div class="navbar-header" style="color: gold;">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("John4Jack", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" style="color: gold;">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Princess Peach", "GetColorInfo", "Color")</li>
+                    <li>@Html.ActionLink("Color By Number", "GetColorInfo", "Color")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content">
+@*<div class="container body-content">*@
+<div>
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer style="position: fixed; bottom: 0; background-color: darkolivegreen; color: gold; padding: 15px; width: 100%; font-weight: 400; text-align: center;">
+            <p>&copy; @DateTime.Now.Year - John R. Fouts, MBA Creations - Color By Number</p><br />
+            <p>ICreateUpwardSpirals@gmail.com</p>
         </footer>
     </div>
 

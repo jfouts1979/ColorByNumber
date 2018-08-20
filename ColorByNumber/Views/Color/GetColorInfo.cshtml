@@ -1,16 +1,134 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Color By Number Grid";
 }
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-tabledit@1.0.0/jquery.tabledit.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.tabledit.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 
 
 
-</head>
-<html>
+<style>
+
+    * {
+        font-family: Consolas font-size:2em;
+    }
+
+    .drawingGrid {
+        margin: 1em auto;
+        border-collapse: collapse
+    }
+
+        .drawingGrid td {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ccc;
+            text-align: center;
+            font-family: sans-serif;
+            font-size: 13px;
+        }
+
+
+    nav {
+        background: #FFF;
+        float: left;
+    }
+
+        nav ul {
+            text-align: center;
+        }
+
+            nav ul li {
+                float: left;
+                display: inline;
+            }
+
+                nav ul li:hover {
+                    background: #E6E6E6;
+                }
+
+                nav ul li a {
+                    display: block;
+                    padding: 15px 25px;
+                    color: #444;
+                }
+
+                nav ul li ul {
+                    position: absolute;
+                    width: 110px;
+                    background: #FFF;
+                }
+
+                    nav ul li ul li {
+                        width: 110px;
+                    }
+
+                        nav ul li ul li a {
+                            display: block;
+                            padding: 15px 10px;
+                            color: #444;
+                        }
+
+                        nav ul li ul li:hover a {
+                            background: #F7F7F7;
+                        }
+
+                    nav ul li ul.fallback {
+                        display: none;
+                    }
+
+                nav ul li:hover ul.fallback {
+                    display: block;
+                }
+
+    table, th, td {
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
+
+
+    .editableTable {
+        border: solid 1px;
+        width: 100%
+    }
+
+        .editableTable td {
+            border: solid 1px;
+        }
+
+        .editableTable .cellEditing {
+            padding: 0;
+            background-color: yellow;
+        }
+
+            .editableTable .cellEditing input[type=text] {
+                width: 100%;
+                border: 0;
+                background-color: rgb(255,253,210);
+            }
+</style>
+
+<ul class="list-group">
+    @*<li><a href="#">Pick Your Colors</a></li>*@
+    <li>
+        @*<a href="#">Pick Your Character</a>*@
+        <ul class="fallback">
+            @*<li><a href="#" onclick="startProgram(superMarioArray)">Super Mario</a></li>*@
+            <br />
+            <br />
+            <li class="list-group-item" style="width: 400px; text-align: center;"><a href="#" onclick="startProgram(princessPeachArray)">Princess Peach - Color By Number - WIP</a></li>
+            <li class="list-group-item" style="width: 400px; text-align: center;"><a href="#" onclick="startProgram(superYoshiArray)">Yoshi (Set to Pink) - Color By Number - WIP</a></li>
+        </ul>
+    </li>
+    <li>
+</ul>
+<div id="drawDraw">
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-tabledit@1.0.0/jquery.tabledit.min.js"></script>
+<script type="text/javascript" src="~/Scripts/jquery.tabledit.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
 <script>
     var lastClicked;
     var numRows = 20;
@@ -21,6 +139,7 @@
     var useArray = new Array();
     var uniqueArr = new Array();
     var suggestedColorsArray = new Array();
+    var firstRunBool = true;
 
     var colorValueArray = [];
 
@@ -134,7 +253,6 @@
             tr[i] = document.createElement('tr');
             for (j = 1; j < 2; j++) {
 
-
                 var td1 = document.createElement('td');
                 var td2 = document.createElement('td');
                 var td3 = document.createElement('td');
@@ -168,32 +286,37 @@
                         $(this).parent().text(newContent); $(this).parent().removeClass("cellEditing");
 
                         setColorValueArray();
-                        setColors();
+                        readyToDraw();
                     }
-
                 });
-
 
                 $(this).children().first().blur(function () {
                     $(this).parent().text(OriginalContent);
                     $(this).parent().removeClass("cellEditing");
-
                 });
-
-
-
             });
-
-
         });
     }
 
+    var setColorsTableArray = [];
+    function setColorValueArray() {
+        $("#tblSetColors tr").each(function () {
+            var arrayOfThisRow = [];
+            var tableData = $(this).find('td:eq(1)');
+            if (tableData.length > 0) {
+                tableData.each(function () { arrayOfThisRow.push($(this).text()); });
+                setColorsTableArray.push(arrayOfThisRow);
+            }
+
+        });
+        colorValueArray = setColorsTableArray;
+        //alert(colorValueArray);
+    }
 
     var maxColors = 10; //Input fields increment limitation
     var x = 1; //Initial field counter is 1
 
     var colorValueArray = new Array();
-
 
     function setInitialColors(arrPam) {
 
@@ -213,40 +336,6 @@
     }
 
     var tempColorArray;
-    var setColorsTableArray = [];
-    function setColorValueArray() {
-        //alert(setColorsTableArray);
-
-        $("#tblSetColors tr").each(function () {
-            var arrayOfThisRow = [];
-            var tableData = $(this).find('td:eq(1)');
-            if (tableData.length > 0) {
-                tableData.each(function () { arrayOfThisRow.push($(this).text()); });
-                setColorsTableArray.push(arrayOfThisRow);
-            }
-
-        });
-
-        colorValueArray = setColorsTableArray;
-       
-
-    }
-
-    function setColors() {
-
-        $('#drawDraw tr td').each(function () {
-            var cellValue = $(this).html();
-            if (!isNaN(parseFloat(cellValue))) {
-                for (p = 0; p < maxColors; p++) {
-                    if (cellValue == p) {
-                        $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr) + 1]);
-                        $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr) + 1]);
-                    }
-
-                }
-            }
-        });
-    }
 
     function readyToDraw() {
 
@@ -260,33 +349,24 @@
                 $(el).each(function () {
                     var cellValue = $(this).html();
                     if (!isNaN(parseFloat(cellValue))) {
-                        //Set Colors:
-                        //alert('Max Colors: ' + maxColors);
-                        //alert(colorValueArray);
                         for (p = 0; p < maxColors; p++) {
                             if (cellValue == p) {
-                                //alert(cellValue);
-                                //alert(p);
-                                //alert('position in unique: ' + jQuery.inArray(parseInt(cellValue), uniqueArr));
-                                //alert('color: ' + colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr)]);
                                 $(this).css('background-color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr) + 1]);
                                 $(this).css('color', colorValueArray[jQuery.inArray(parseInt(cellValue), uniqueArr) + 1]);
                             }
-
                         }
                     }
                 });
             });
 
-
-
-
-
         document.getElementById("drawDraw").appendChild(finishedDrawingGrid);
 
         function clickableDrawingGrid(rows, cols, callback) {
+
             var i = 0;
+            firstRunBool = false;
             var drawingGrid = document.createElement('table');
+            //table.id = "tblPaintGrid";
             drawingGrid.className = 'drawingGrid';
             for (var r = 0; r < rows; ++r) {
                 var tr = drawingGrid.appendChild(document.createElement('tr'));
@@ -302,7 +382,6 @@
             }
             return drawingGrid;
         }
-
         gridShowing = true;
     };
 
@@ -327,142 +406,8 @@
         readyToDraw();
     }
 
-    function updateColors(arr) {
-        //setInitialColors(arr);
-        //$('#colorsListTable').empty();
-        // makeColorsTable();
-        //setColorValueArray();
-        //useArray = arr;
-        //readyToDraw();
-    }
-
 </script>
 
-<style>
-
-    * {
-        font-family: Consolas font-size:2em;
-    }
-
-    .editableTable {
-        border: solid 1px;
-        width: 100%
-    }
-
-        .editableTable td {
-            border: solid 1px;
-        }
-
-        .editableTable .cellEditing {
-            padding: 0;
-        }
-
-            .editableTable .cellEditing input[type=text] {
-                width: 100%;
-                border: 0;
-                background-color: rgb(255,253,210);
-            }
-
-    .drawingGrid {
-        margin: 1em auto;
-        border-collapse: collapse
-    }
-
-        .drawingGrid td {
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            border: 1px solid #ccc;
-            text-align: center;
-            font-family: sans-serif;
-            font-size: 13px;
-        }
-
-
-    nav {
-        background: #FFF;
-        float: left;
-    }
-
-        nav ul {
-            text-align: center;
-        }
-
-            nav ul li {
-                float: left;
-                display: inline;
-            }
-
-                nav ul li:hover {
-                    background: #E6E6E6;
-                }
-
-                nav ul li a {
-                    display: block;
-                    padding: 15px 25px;
-                    color: #444;
-                }
-
-                nav ul li ul {
-                    position: absolute;
-                    width: 110px;
-                    background: #FFF;
-                }
-
-                    nav ul li ul li {
-                        width: 110px;
-                    }
-
-                        nav ul li ul li a {
-                            display: block;
-                            padding: 15px 10px;
-                            color: #444;
-                        }
-
-                        nav ul li ul li:hover a {
-                            background: #F7F7F7;
-                        }
-
-                    nav ul li ul.fallback {
-                        display: none;
-                    }
-
-                nav ul li:hover ul.fallback {
-                    display: block;
-                }
-
-    table, th, td {
-        border-collapse: collapse;
-        border: 1px solid black;
-    }
-</style>
-
-<body>
-
-    <ul>
-        <li><a href="#">Pick Your Colors</a></li>
-        <li>
-            <a href="#">Pick Your Character</a>
-            <ul class="fallback">
-                <li><a href="#" onclick="startProgram(superMarioArray)">Super Mario</a></li>
-                <li><a href="#" onclick="startProgram(princessPeachArray)">Princess Peach</a></li>
-                <li><a href="#" onclick="startProgram(superYoshiArray)">Yoshi</a></li>
-            </ul>
-        </li>
-        <li>
-    </ul>
-    <div id="drawDraw">
-
-    </div>
-
-    <div id="colorsListTable" contenteditable>
+<div id="colorsListTable">
         <button onclick="setColorValueArray()">Update Color Array</button>
     </div>
-
-</body>
-</html>
-
-
-
-
-
